@@ -1,0 +1,14 @@
+@import 'base';
+
+.Video {
+  position: relative;
+  height: 0;
+  min-height: 0;
+  padding-bottom: 56.25%;
+  background-color: #040404;
+  margin: 3rem 0 0 0;
+}
+
+.Video__inner {
+  @include cover();
+}

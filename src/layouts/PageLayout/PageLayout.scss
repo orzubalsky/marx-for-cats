@@ -1,0 +1,13 @@
+@import 'base';
+
+.Header {
+  text-transform: uppercase;
+  margin: 0 0 -1px 0;
+  border: 1px solid $color_body;
+  padding: 1rem 0;
+
+  h1 {
+    margin: 0;
+    font-size: $type_size_header;
+  }
+}

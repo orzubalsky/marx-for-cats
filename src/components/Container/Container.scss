@@ -1,0 +1,66 @@
+@import 'base';
+
+.Container {
+  position: relative;
+  min-height: 20rem;
+
+  @include for-wide-phone-up {
+    height: 0;
+    min-height: 0;
+  }
+}
+
+.Container--25 {
+  @include for-wide-phone-up {
+    padding-bottom: 25%;
+  }
+}
+
+.Container--33 {
+  @include for-wide-phone-up {
+    padding-bottom: 66.6666%;
+  }
+
+  @include for-tablet-portrait-up {
+    padding-bottom: 33.3333%;
+  }
+}
+
+.Container--50 {
+  @include for-wide-phone-up {
+    padding-bottom: 50%;
+  }
+}
+
+.Container--56 {
+  @include for-wide-phone-up {
+    padding-bottom: 56.25%;
+  }
+}
+
+.Container--66 {
+  @include for-wide-phone-up {
+    padding-bottom: 66.6666%;
+  }
+}
+
+.Container--100 {
+  @include for-wide-phone-up {
+    padding-bottom: 100%;
+  }
+}
+
+.Container__inner {
+  @include for-wide-phone-up {
+    @include cover();
+    display: flex;
+
+    &.Container__inner--horizontal {
+      flex-direction: column;
+    }
+
+    &.Container__inner--vertical {
+      flex-direction: row;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@mixin cover() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@mixin patternRed() {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAARklEQVQoU43QyQ0AIAgEwKX/ojESJbIC6g8yXAroKaACCOdDokKzyGGHHL6QwR8URvPyZ7yadQTYE69vSDqZKSHvnsLswAENxBQJ8q3lKAAAAABJRU5ErkJggg==) repeat;
+}
+
+@mixin patternBlue() {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAO0lEQVQoU43MSwoAMAgDUXP/Q6dIC/ajsbN+DOwrEr0jzYAGTuQzAQMJeKICviiBObpgjTao0YI9cjgA+B0UCTp3FkgAAAAASUVORK5CYII=) repeat;
+}

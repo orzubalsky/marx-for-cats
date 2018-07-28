@@ -1,0 +1,37 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  "plugins": [
+    "babel",
+    "react",
+    "promise"
+  ],
+  "env": {
+    "browser" : true
+  },
+  "globals": {
+    "__DEV__"         : false,
+    "__TEST__"        : false,
+    "__STG__"         : false,
+    "__PROD__"        : false,
+    "__COVERAGE__"    : false,
+    campaignId        : false,
+    analyticsPixelUrl : false,
+    tvUiVersion       : false,
+    appBaseUrl        : false,
+    tv_campaign       : false,
+    appUrlPath        : false,
+    tvApiUrl          : false,
+    jwplayer          : false
+  },
+  "rules": {
+    "key-spacing"          : "off",
+    "jsx-quotes"           : [2, "prefer-single"],
+    "max-len"              : [2, 120, 2],
+    "object-curly-spacing" : [2, "always"],
+    "comma-dangle"         : "off"
+  }
+}

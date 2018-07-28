@@ -1,0 +1,23 @@
+.Loader--loaded {
+  height: 100%;
+  flex: 1;
+}
+
+.spinner-container {
+  width: 100%;
+  padding: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-container .fa {
+  color: lightgray;
+}
+
+.spinner-label {
+  color: lightgray;
+  margin-left: 10px;
+}

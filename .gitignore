@@ -1,0 +1,15 @@
+.DS_STORE
+*.log
+node_modules
+dist
+coverage
+.idea/
+.yarn-cache
+/node_modules/
+/node_modules/*
+/build/
+/build/*
+/dist
+yarn-error.log
+*oauth2.keys.json
+*client_secrets.json
