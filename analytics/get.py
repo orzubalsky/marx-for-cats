@@ -3,10 +3,13 @@ from google.oauth2 import service_account
 from database import init_database, save
 import pdb
 import random, string
+import os
+
+path = os.path.dirname(os.path.abspath(__file__))
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
-KEY_FILE_LOCATION = 'client_secrets.json'
+KEY_FILE_LOCATION = os.path.join(path, 'client_secrets.json')
 VIEW_ID = '159385875'
 
 
@@ -50,6 +53,6 @@ def main():
 
   save(identifier, { 'city': city, 'value': value })
   
-  
+
 if __name__ == '__main__':
   main()
