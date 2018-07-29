@@ -1,0 +1,23 @@
+@import 'base';
+
+.AdItem {
+  margin: 0 0 2rem;
+  text-align: left;
+}
+
+.AdItem__name {
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.AdItem__ad {
+  width: 100%;
+  height: 4rem;
+  background: #040404;
+  margin: 0 0 2rem;
+}
+
+.AdItem__data {
+  display: flex;
+  flex-wrap: wrap;
+}

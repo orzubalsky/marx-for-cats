@@ -1,0 +1,24 @@
+@import 'base';
+
+.VideoItem {
+  margin: 0 0 10rem;
+  text-align: left;
+}
+
+.VideoItem__name {
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.VideoItem__description {
+  margin: 0 0 2rem;  
+  
+  p {
+    margin: 0;
+  }    
+}
+
+.VideoItem__data {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -63,7 +63,7 @@ export const getBrowser = state => state.browser
 // Sagas
 // ------------------------------------
 export function * mount (action) {
-  yield put(analytics.chapterViewRequested({ name: 'test' }))
+  // yield put(analytics.chapterViewRequested({ name: 'test' }))
 }
 
 // ------------------------------------

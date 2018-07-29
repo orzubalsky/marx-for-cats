@@ -22,34 +22,31 @@ def initialize_analyticsreporting():
   return analytics
 
 
-def get_report(analytics, metrics, dimensions):
+def get_report(analytics, metrics = [], dimensions = []):
   return analytics.reports().batchGet(
     body={
       'reportRequests': [
       {
         'viewId': VIEW_ID,
-        'dateRanges': [{'startDate': '2005-01-01', 'endDate': 'today'}],
-        'metrics': [ {'expression': metrics} ],
-        'dimensions': [ {'name': dimensions } ],
-        'orderBys': [ { 'fieldName': metrics } ]
+        'dateRanges': [{'startDate': '2018-01-01', 'endDate': 'today'}],
+        'metrics': [{ 'expression': m } for m in metrics],
+        'dimensions': [{ 'name': d } for d in dimensions ],
+        'orderBys': [ { 'fieldName': metrics[0] } ]
       }]
     }
   ).execute()
 
 
 def get_city(analytics):
-  response = get_report(analytics, 'ga:sessions', 'ga:region')
+  response = get_report(analytics, ['ga:sessions'], ['ga:region'])
   city = response['reports'][0]['data']['rows'][-1:][0]['dimensions'][0]
   value = response['reports'][0]['data']['rows'][-1:][0]['metrics'][0]['values'][0]
   return (city, value)
 
 
 def get_chapter(analytics):
-  response = get_report(analytics, 'ga:uniqueEvents', 'ga:eventLabel')
+  response = get_report(analytics, ['ga:sessions'], ['ga:eventCategory', 'ga:eventAction', 'ga:eventLabel'])
   pdb.set_trace()
-  city = response['reports'][0]['data']['rows'][-1:][0]['dimensions'][0]
-  value = response['reports'][0]['data']['rows'][-1:][0]['metrics'][0]['values'][0]
-  return (city, value)  
 
 
 def main():

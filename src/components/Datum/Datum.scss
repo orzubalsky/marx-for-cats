@@ -1,0 +1,17 @@
+@import 'base';
+
+.Datum {
+  background: $color_body;
+  color: $color_background;
+  display: flex;
+  text-align: center;
+  width: 100%;
+}
+
+.Datum__label,
+.Datum__value {
+  padding: 0.5rem;
+  width: 50%;
+  border-right: 1px solid $color_background; 
+  border-bottom: 1px solid $color_background; 
+}

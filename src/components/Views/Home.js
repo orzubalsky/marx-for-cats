@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import VideoItem from 'components/VideoItem/VideoItem'
+import AdItem from 'components/AdItem/AdItem'
 import './Home.scss'
 
 class Home extends React.Component {
@@ -10,7 +12,8 @@ class Home extends React.Component {
   render () {
     return (
       <div className='Home'>
-        hi
+        <VideoItem />
+        <AdItem />
       </div>
     )
   }
