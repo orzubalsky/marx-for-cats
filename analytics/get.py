@@ -1,7 +1,8 @@
-"""Hello Analytics Reporting API V4."""
-
 from apiclient.discovery import build
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2 import service_account
+from database import init_database, save
+import pdb
+import random, string
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
@@ -10,69 +11,45 @@ VIEW_ID = '159385875'
 
 
 def initialize_analyticsreporting():
-  """Initializes an Analytics Reporting API V4 service object.
+  credentials = service_account.Credentials.from_service_account_file(
+        KEY_FILE_LOCATION, scopes=SCOPES)
 
-  Returns:
-    An authorized Analytics Reporting API V4 service object.
-  """
-  credentials = ServiceAccountCredentials.from_json_keyfile_name(
-      KEY_FILE_LOCATION, SCOPES)
-
-  # Build the service object.
   analytics = build('analyticsreporting', 'v4', credentials=credentials)
 
   return analytics
 
 
-def get_report(analytics):
-  """Queries the Analytics Reporting API V4.
-
-  Args:
-    analytics: An authorized Analytics Reporting API V4 service object.
-  Returns:
-    The Analytics Reporting API V4 response.
-  """
+def get_report(analytics, metrics, dimensions):
   return analytics.reports().batchGet(
-      body={
-        'reportRequests': [
-        {
-          'viewId': VIEW_ID,
-          'dateRanges': [{'startDate': '7daysAgo', 'endDate': 'today'}],
-          'metrics': [{'expression': 'ga:sessions'}],
-          'dimensions': [{'name': 'ga:fullReferrer'}]
-        }]
-      }
+    body={
+      'reportRequests': [
+      {
+        'viewId': VIEW_ID,
+        'dateRanges': [{'startDate': '2005-01-01', 'endDate': 'today'}],
+        'metrics': [ {'expression': metrics} ],
+        'dimensions': [ {'name': dimensions } ],
+        'orderBys': [ { 'fieldName': metrics } ]
+      }]
+    }
   ).execute()
 
 
-def print_response(response):
-  """Parses and prints the Analytics Reporting API V4 response.
-
-  Args:
-    response: An Analytics Reporting API V4 response.
-  """
-  for report in response.get('reports', []):
-    columnHeader = report.get('columnHeader', {})
-    dimensionHeaders = columnHeader.get('dimensions', [])
-    metricHeaders = columnHeader.get('metricHeader', {}).get('metricHeaderEntries', [])
-
-    for row in report.get('data', {}).get('rows', []):
-      dimensions = row.get('dimensions', [])
-      dateRangeValues = row.get('metrics', [])
-
-      for header, dimension in zip(dimensionHeaders, dimensions):
-        print header + ': ' + dimension
-
-      for i, values in enumerate(dateRangeValues):
-        print 'Date range: ' + str(i)
-        for metricHeader, value in zip(metricHeaders, values.get('values')):
-          print metricHeader.get('name') + ': ' + value
+def get_city(analytics):
+  response = get_report(analytics, 'ga:sessions', 'ga:region')
+  city = response['reports'][0]['data']['rows'][-1:][0]['dimensions'][0]
+  value = response['reports'][0]['data']['rows'][-1:][0]['metrics'][0]['values'][0]
+  return (city, value)
 
 
 def main():
+  init_database()
   analytics = initialize_analyticsreporting()
-  response = get_report(analytics)
-  print_response(response)
+  (city, value) = get_city(analytics)
 
+  identifier = ''.join(random.choice(string.lowercase) for i in range(8))
+
+  save(identifier, { 'city': city, 'value': value })
+  
+  
 if __name__ == '__main__':
   main()

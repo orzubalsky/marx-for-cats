@@ -1,5 +1,6 @@
 .DS_STORE
 *.log
+*.pyc
 node_modules
 dist
 coverage
@@ -13,3 +14,4 @@ coverage
 yarn-error.log
 *oauth2.keys.json
 *client_secrets.json
+*firebase-key.json
