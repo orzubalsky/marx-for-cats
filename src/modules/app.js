@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { combineReducers } from 'redux'
+import * as analytics from 'modules/analytics'
 import * as navigation from 'modules/navigation'
 import { actionCreator, log } from 'utils/common'
 
@@ -62,7 +63,7 @@ export const getBrowser = state => state.browser
 // Sagas
 // ------------------------------------
 export function * mount (action) {
-
+  yield put(analytics.chapterViewRequested({ name: 'test' }))
 }
 
 // ------------------------------------

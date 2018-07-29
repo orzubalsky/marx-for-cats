@@ -44,14 +44,23 @@ def get_city(analytics):
   return (city, value)
 
 
+def get_chapter(analytics):
+  response = get_report(analytics, 'ga:uniqueEvents', 'ga:eventLabel')
+  pdb.set_trace()
+  city = response['reports'][0]['data']['rows'][-1:][0]['dimensions'][0]
+  value = response['reports'][0]['data']['rows'][-1:][0]['metrics'][0]['values'][0]
+  return (city, value)  
+
+
 def main():
   init_database()
   analytics = initialize_analyticsreporting()
-  (city, value) = get_city(analytics)
+  # (city, value) = get_city(analytics)
+  result = get_chapter(analytics)
 
   identifier = ''.join(random.choice(string.lowercase) for i in range(8))
-
-  save(identifier, { 'city': city, 'value': value })
+  print city
+  # save(identifier, { 'city': city, 'value': value })
   
 
 if __name__ == '__main__':
