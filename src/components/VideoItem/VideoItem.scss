@@ -1,8 +1,9 @@
 @import 'base';
 
 .VideoItem {
-  margin: 0 0 10rem;
+  margin: 0 auto 10rem;
   text-align: left;
+  max-width: 80rem;
 }
 
 .VideoItem__name {
@@ -11,11 +12,11 @@
 }
 
 .VideoItem__description {
-  margin: 0 0 2rem;  
-  
+  margin: 0 0 2rem;
+
   p {
     margin: 0;
-  }    
+  }
 }
 
 .VideoItem__data {

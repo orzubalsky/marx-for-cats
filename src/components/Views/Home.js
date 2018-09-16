@@ -12,8 +12,11 @@ class Home extends React.Component {
   render () {
     return (
       <div className='Home'>
-        <VideoItem />
-        <AdItem />
+        <VideoItem name='Affective Labour' />
+        <VideoItem name={`Art's Commodity Status`} />
+        <VideoItem name='Use Value' />
+        <VideoItem name='Spatial Fix' />
+        <VideoItem name='Wage Labour' />
       </div>
     )
   }
