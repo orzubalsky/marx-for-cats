@@ -1,0 +1,31 @@
+@import 'base';
+
+$stats_height: 9rem;
+
+.Footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $stats_height;
+  padding: 1rem;
+  background: #eee;
+  transition: all 0.2s;
+
+  &.Footer--expanded {
+    height: auto;
+  }
+}
+
+.Footer__toggle {
+  position: absolute;
+  right: 2rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.Stats {
+  display: flex;
+  height: $stats_height;
+  margin: 0 0 2rem;
+}

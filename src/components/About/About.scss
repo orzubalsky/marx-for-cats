@@ -1,0 +1,26 @@
+@import 'base';
+
+.About {
+  max-width: 60rem;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.About__description {
+  font-size: 2rem;
+  line-height: 1.4;
+  margin: 0 0 4rem;
+}
+
+.About__credit {
+  font-size: 1.3rem;
+  text-align: center;
+
+  p {
+    margin: 0 0 2rem;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}

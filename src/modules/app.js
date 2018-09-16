@@ -52,14 +52,16 @@ export const reducer = (state = [], action) => {
 }
 
 const initialState = {
+  isFooterExpanded: true,
   session: {
-    time : 2
+    time : 0
   }
 }
 
 export const appReducer = (state = initialState, action) => {
   const combinedReducer = combineReducers({
     navigation: navigation.reducer,
+    isFooterExpanded: (state = false) => state,
     isLoaded: (state = true) => state,
     session: (state = {}) => state
   })

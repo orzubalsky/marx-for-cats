@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 import * as app from 'modules/app'
 import PageLayout from 'layouts/PageLayout'
 import Home from 'components/Views/Home'
+import Footer from 'components/Footer/Footer'
 import './PageLayout.scss'
 
 const mapDispatchToProps = {
@@ -13,9 +14,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = state => {
-  return {
-    sessionTime: app.getSessionTime(state)
-  }
+  return {}
 }
 
 export class Wrapper extends React.Component {
@@ -41,9 +40,7 @@ export class Wrapper extends React.Component {
     return (
       <div className='App'>
         <PageLayout exact path='/' Component={Home} />
-        <footer className='Footer'>
-          {this.props.sessionTime}
-        </footer>
+        <Footer />
       </div>
     )
   }
@@ -52,7 +49,6 @@ export class Wrapper extends React.Component {
 Wrapper.propTypes = {
   location: PropTypes.object,
   mount: PropTypes.func.isRequired,
-  sessionTime: PropTypes.number,
   updateSessionTime: PropTypes.func.isRequired
 }
 
