@@ -2,22 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { mountRequested } from 'modules/app'
+import * as app from 'modules/app'
 import PageLayout from 'layouts/PageLayout'
 import Home from 'components/Views/Home'
 import './PageLayout.scss'
 
 const mapDispatchToProps = {
-  mount: () => mountRequested()
+  mount: () => app.mountRequested(),
+  updateSessionTime: () => app.updateSessionTime()
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    sessionTime: app.getSessionTime(state)
+  }
 }
 
 export class Wrapper extends React.Component {
   componentWillMount () {
     this.props.mount()
+    this.interval = setInterval(this.props.updateSessionTime, 1000)
   }
 
   componentWillUpdate (prevProps) {
@@ -29,10 +33,17 @@ export class Wrapper extends React.Component {
     }
   }
 
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
+
   render () {
     return (
       <div className='App'>
         <PageLayout exact path='/' Component={Home} />
+        <footer className='Footer'>
+          {this.props.sessionTime}
+        </footer>
       </div>
     )
   }
@@ -40,7 +51,9 @@ export class Wrapper extends React.Component {
 
 Wrapper.propTypes = {
   location: PropTypes.object,
-  mount: PropTypes.func.isRequired
+  mount: PropTypes.func.isRequired,
+  sessionTime: PropTypes.number,
+  updateSessionTime: PropTypes.func.isRequired
 }
 
 Wrapper.defaultProps = {}

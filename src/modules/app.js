@@ -11,12 +11,14 @@ import { actionCreator, log } from 'utils/common'
 const MODULE = 'APP'
 const MOUNT_REQUESTED = `${MODULE}/MOUNT/REQUESTED`
 const UPDATE = `${MODULE}/UPDATED`
+const UPDATE_SESSION_TIME = `${MODULE}/SESSION/TIME/UPDATED`
 
 // ------------------------------------
 // Action Creators
 // ------------------------------------
 export const mountRequested = actionCreator(MOUNT_REQUESTED, 'payload')
 export const update = actionCreator(UPDATE, 'payload')
+export const updateSessionTime = actionCreator(UPDATE_SESSION_TIME, 'payload')
 
 // ------------------------------------
 // Action Handlers
@@ -26,6 +28,17 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       ...action.payload
+    }
+  },
+  [UPDATE_SESSION_TIME] : (state, action) => {
+    const time = _.get(state.session, 'time', 0) + 1
+
+    return {
+      ...state,
+      session: {
+        ...state.session,
+        time
+      }
     }
   }
 }
@@ -38,12 +51,17 @@ export const reducer = (state = [], action) => {
   return handler ? handler(state, action) : state
 }
 
-const initialState = {}
+const initialState = {
+  session: {
+    time : 2
+  }
+}
 
 export const appReducer = (state = initialState, action) => {
   const combinedReducer = combineReducers({
     navigation: navigation.reducer,
-    isLoaded: (state = true) => state
+    isLoaded: (state = true) => state,
+    session: (state = {}) => state
   })
 
   const intermediateState = combinedReducer(state, action)
@@ -58,6 +76,8 @@ export const appReducer = (state = initialState, action) => {
 export const getModule = state => state.app
 export const getProp = (state, prop, defaultVal) => _.get(getModule(state), prop, defaultVal)
 export const getBrowser = state => state.browser
+export const getSession = state => getProp(state, 'session')
+export const getSessionTime = state => _.get(getSession(state), 'time')
 
 // ------------------------------------
 // Sagas

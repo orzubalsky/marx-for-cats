@@ -40,6 +40,9 @@ export class PageLayoutWrapper extends React.Component {
           </h1>
         </header>
         <PageLayout exact path='/' Component={HomeView} />
+        <footer className='Footer'>
+          kjh
+        </footer>
       </div>
     )
   }
