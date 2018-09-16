@@ -13,7 +13,7 @@ class About extends React.Component {
         </div>
         <div className='About__credit'>
           <p>
-            By Caroline Woolard, Leigh Claire, and Or Zubalsky.<br />
+            By Caroline Woolard, Leigh Claire La Berge, and Or Zubalsky.<br />
             Get in touch at <a href="mailto:marxforcats@gmail.com">marxforcats@gmail.com</a>
           </p>
         </div>
