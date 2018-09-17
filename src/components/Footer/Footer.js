@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as app from 'modules/app'
+import * as videos from 'modules/videos'
 import Stat from 'components/Stat/Stat'
 import About from 'components/About/About'
 import './Footer.scss'
@@ -12,6 +13,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
   return {
+    watchedVideo: videos.getPlaying(state),
     isExpanded: app.getProp(state, 'isFooterExpanded'),
     sessionTime: app.getSessionTime(state)
   }
@@ -19,7 +21,7 @@ const mapStateToProps = state => {
 
 class Footer extends React.Component {
   render () {
-    const { isExpanded, sessionTime, updateIsExpanded } = this.props
+    const { isExpanded, sessionTime, updateIsExpanded, watchedVideo } = this.props
 
     const className = [
       'Footer',
@@ -35,11 +37,13 @@ class Footer extends React.Component {
           { isExpanded ? '-' : '+' }
         </a>
         <div className='Stats'>
-          <Stat
-            name='Watching Affective Labour'
-            average={30}
-            cat={sessionTime}
-          />
+          {watchedVideo
+            ? <Stat
+              name={`Watching ${watchedVideo.name}`}
+              cat={_.get(watchedVideo, 'elapsedTime', 0)}
+            />
+            : null
+          }
           <Stat
             name='Looking at Affective Labour'
             cat={sessionTime}

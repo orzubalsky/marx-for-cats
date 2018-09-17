@@ -3,6 +3,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { combineReducers } from 'redux'
 import * as analytics from 'modules/analytics'
 import * as navigation from 'modules/navigation'
+import * as videos from 'modules/videos'
 import { actionCreator, log } from 'utils/common'
 
 // ------------------------------------
@@ -52,7 +53,7 @@ export const reducer = (state = [], action) => {
 }
 
 const initialState = {
-  isFooterExpanded: true,
+  isFooterExpanded: false,
   session: {
     time : 0
   }
@@ -61,6 +62,7 @@ const initialState = {
 export const appReducer = (state = initialState, action) => {
   const combinedReducer = combineReducers({
     navigation: navigation.reducer,
+    videos: videos.reducer,
     isFooterExpanded: (state = false) => state,
     isLoaded: (state = true) => state,
     session: (state = {}) => state

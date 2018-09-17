@@ -23,6 +23,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@vimeo/player": "^2.6.3",
     "axios": "^0.18.0",
     "compression": "^1.6.2",
     "express": "^4.14.0",

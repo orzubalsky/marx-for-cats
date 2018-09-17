@@ -6,7 +6,7 @@ import './VideoItem.scss'
 
 class VideoItem extends React.Component {
   render () {
-    const { className, name, isActive } = this.props
+    const { className, id, name, isActive } = this.props
 
     const classNames = [
       className,
@@ -16,8 +16,16 @@ class VideoItem extends React.Component {
 
     return (
       <div className={classNames}>
-        <h2 className='VideoItem__name'>{name}</h2>
-        <Video />
+        <div className='VideoItem__inner'>
+          <h2 className='VideoItem__name'>
+            <span>
+              {name}
+            </span>
+          </h2>
+          <div className='VideoItem__videoContainer'>
+            <Video id={id} />
+          </div>
+        </div>
       </div>
     )
   }
@@ -25,6 +33,7 @@ class VideoItem extends React.Component {
 
 VideoItem.propTypes = {
   className: PropTypes.string,
+  id: PropTypes.number.isRequired,
   isActive: PropTypes.bool.isRequired,
   name: PropTypes.string
 }

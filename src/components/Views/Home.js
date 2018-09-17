@@ -1,8 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import * as videos from 'modules/videos'
 import VideoItem from 'components/VideoItem/VideoItem'
 import AdItem from 'components/AdItem/AdItem'
 import './Home.scss'
+
+const mapDispatchToProps = {
+}
+
+const mapStateToProps = state => {
+  return {
+    videos: videos.getItems(state)
+  }
+}
 
 class Home extends React.Component {
   ComponentDidMount () {
@@ -12,20 +23,17 @@ class Home extends React.Component {
   render () {
     return (
       <div className='Home'>
-        <VideoItem name='Affective Labour' />
-        <VideoItem name={`Art's Commodity Status`} />
-        <VideoItem name='Use Value' />
-        <VideoItem name='Spatial Fix' />
-        <VideoItem name='Wage Labour' />
+        {this.props.videos.map(({ id, name }) => <VideoItem key={id} name={name} id={id} />)}
       </div>
     )
   }
 }
 
 Home.propTypes = {
+  videos: PropTypes.array.isRequired
 }
 
 Home.defaultProps = {
 }
 
-export default Home
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

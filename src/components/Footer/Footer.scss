@@ -9,7 +9,7 @@ $stats_height: 9rem;
   width: 100%;
   height: $stats_height;
   padding: 1rem;
-  background: #eee;
+  background: rgba(220,220,220,0.97);
   transition: all 0.2s;
 
   &.Footer--expanded {

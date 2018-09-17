@@ -1,18 +1,21 @@
 @import 'base';
 
 .VideoItem {
-  margin: 0 auto 6rem;
+  margin: 0 auto;
+  padding: 1rem 0 8rem;
   text-align: left;
-  border-top: 1rem solid $color_body;
+  border-bottom: 1px solid $color_body;
+}
+
+.VideoItem__inner {
+  max-width: 80rem;
+  padding: 0 2rem;
+  margin: 0 auto;
 }
 
 .VideoItem__name {
   margin: 0 0 2rem;
-  padding: 0 1rem 0 6rem;
-  max-width: 80rem;
   display: inline-block;
-  background-color: $color_body;
-  color: $color_background;
 }
 
 .VideoItem__description {

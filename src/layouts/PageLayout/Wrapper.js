@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 import * as app from 'modules/app'
 import PageLayout from 'layouts/PageLayout'
 import Home from 'components/Views/Home'
+import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
 import './PageLayout.scss'
 
@@ -39,6 +40,7 @@ export class Wrapper extends React.Component {
   render () {
     return (
       <div className='App'>
+        <Header />
         <PageLayout exact path='/' Component={Home} />
         <Footer />
       </div>
