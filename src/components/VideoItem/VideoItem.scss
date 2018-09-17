@@ -1,21 +1,22 @@
 @import 'base';
 
 .VideoItem {
-  margin: 0 auto;
+  margin: 0 auto 4rem;
   padding: 1rem 0 8rem;
   text-align: left;
   border-bottom: 1px solid $color_body;
+
+  &:last-child {
+    margin: 0 auto;
+    border-bottom: none;
+  }
 }
 
 .VideoItem__inner {
   max-width: 80rem;
   padding: 0 2rem;
   margin: 0 auto;
-}
-
-.VideoItem__name {
-  margin: 0 0 2rem;
-  display: inline-block;
+  position: relative;
 }
 
 .VideoItem__description {
@@ -29,4 +30,37 @@
 .VideoItem__data {
   display: flex;
   flex-wrap: wrap;
+}
+
+.VideoItem__name {
+  margin: 0 0 1rem;
+  position: relative;
+  padding: 0 15rem 0 0;
+  font-weight: 100;
+  font-size: 1.6rem;
+
+  @include for-tablet-portrait-up() {
+    font-size: 2rem;
+  }
+}
+
+.VideoItem__stats {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1.4rem;
+}
+
+.VideoItem__stat {
+  display: inline-block;
+  margin: 0 2rem 0 0;
+
+  &:last-child {
+    margin: 0;
+  }
+
+  i {
+    margin: 0 0.5rem 0 0;
+  }
 }

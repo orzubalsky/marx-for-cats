@@ -9,6 +9,8 @@ const MODULE = 'VIDEOS'
 const UPDATE = `${MODULE}/UPDATED`
 const UPDATE_STATUS = `${MODULE}/STATUS/UPDATED`
 const UPDATE_TIME = `${MODULE}/TIME/UPDATED`
+const UPDATE_VISIBILITY = `${MODULE}/VISIBILITY/UPDATED`
+const UPDATE_VISIBILITY_TIMES = `${MODULE}/VISIBILITY_TIMES/UPDATED`
 
 // ------------------------------------
 // Action Creators
@@ -16,6 +18,8 @@ const UPDATE_TIME = `${MODULE}/TIME/UPDATED`
 export const update = actionCreator(UPDATE, 'payload')
 export const updateStatus = actionCreator(UPDATE_STATUS, 'payload')
 export const updateTime = actionCreator(UPDATE_TIME, 'payload')
+export const updateVisibility = actionCreator(UPDATE_VISIBILITY, 'payload')
+export const updateVisibilityTimes = actionCreator(UPDATE_VISIBILITY_TIMES, 'payload')
 
 // ------------------------------------
 // Action Handlers
@@ -45,8 +49,8 @@ const ACTION_HANDLERS = {
     const previousTime = _.get(state.items[id], 'currentTime', 0)
     const timeDiff = currentTime - previousTime
     const elapsedTime = Math.abs(timeDiff) < 1
-    ? _.get(state.items[id], 'elapsedTime', 0) + timeDiff
-    : _.get(state.items[id], 'elapsedTime', 0)
+     ? _.get(state.items[id], 'elapsedTime', 0) + timeDiff
+      : _.get(state.items[id], 'elapsedTime', 0)
 
     return {
       ...state,
@@ -54,6 +58,23 @@ const ACTION_HANDLERS = {
         ...state.items,
         [ id ] : { ...state.items[id], currentTime, previousTime, elapsedTime }
       }
+    }
+  },
+  [UPDATE_VISIBILITY] : (state, action) => {
+    const { id, isVisible } = action.payload
+
+    return {
+      ...state,
+      items: {
+        ...state.items,
+        [ id ] : { ...state.items[id], isVisible }
+      }
+    }
+  },
+  [UPDATE_VISIBILITY_TIMES] : (state, action) => {
+    return {
+      ...state,
+      items: _.mapValues(state.items, video => video.isVisible ? ({ ...video, visibilityTime: _.get(video, 'visibilityTime', 0) + 1 }) : video)
     }
   }
 }
@@ -120,6 +141,12 @@ export const getItems = state => _.chain(getProp(state, 'items', []))
   .sortBy('name')
   .value()
 export const getPlaying = state => _.find(getItems(state), video => video.status === 'playing')
+export const getVisible = state => _.find(getItems(state), video => video.isVisible)
+export const getItem = (state, id) => _.find(getItems(state), item => item.id === id)
+export const getItemProp = (state, id, prop, defaultValue) => _.get(getItem(state, id), prop, defaultValue)
+export const getStatus = (state, id) => getItemProp(state, id, 'status', 'stopped')
+export const getElapsedTime = (state, id) => getItemProp(state, id, 'elapsedTime', 0)
+export const getVisibilityTime = (state, id) => getItemProp(state, id, 'visibilityTime', 0)
 
 // ------------------------------------
 // Sagas

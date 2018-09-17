@@ -1,17 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import moment from 'moment'
+import * as videos from 'modules/videos'
 import Video from 'components/Video/Video'
 import Datum from 'components/Datum/Datum'
 import './VideoItem.scss'
 
+const mapDispatchToProps = {}
+
+const mapStateToProps = (state, ownProps) => {
+  const { id } = ownProps
+
+  return {
+    status: videos.getStatus(state, id),
+    elapsedTime: videos.getElapsedTime(state, id),
+    visibilityTime: videos.getVisibilityTime(state, id)
+  }
+}
+
 class VideoItem extends React.Component {
+  withLeadingZero (number) {
+    return number < 10 ? `0${number}` : number
+  }
+
+  formatNumber (number) {
+    const duration = moment.duration(number * 1000)
+    return `${this.withLeadingZero(duration.minutes())}:${this.withLeadingZero(duration.seconds())}`
+  }
+
   render () {
-    const { className, id, name, isActive } = this.props
+    const { className, elapsedTime, id, name, status, visibilityTime } = this.props
 
     const classNames = [
       className,
       'VideoItem',
-      !isActive ? 'VideoItem--inactive' : null
+
     ].join(' ')
 
     return (
@@ -21,6 +45,16 @@ class VideoItem extends React.Component {
             <span>
               {name}
             </span>
+            <div className='VideoItem__stats'>
+              <div className='VideoItem__stat'>
+                <i className='fas fa-eye' />
+                <span>{this.formatNumber(visibilityTime)}</span>
+              </div>
+              <div className='VideoItem__stat'>
+                <i className='far fa-clock' />
+                <span>{this.formatNumber(elapsedTime)}</span>
+              </div>
+            </div>
           </h2>
           <div className='VideoItem__videoContainer'>
             <Video id={id} />
@@ -34,13 +68,11 @@ class VideoItem extends React.Component {
 VideoItem.propTypes = {
   className: PropTypes.string,
   id: PropTypes.number.isRequired,
-  isActive: PropTypes.bool.isRequired,
   name: PropTypes.string
 }
 
 VideoItem.defaultProps = {
-  className: '',
-  isActive: true
+  className: ''
 }
 
-export default VideoItem
+export default connect(mapStateToProps, mapDispatchToProps)(VideoItem)

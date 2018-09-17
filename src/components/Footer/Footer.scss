@@ -1,15 +1,13 @@
 @import 'base';
 
-$stats_height: 9rem;
+$stats_height: 5rem;
 
 .Footer {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: $stats_height;
-  padding: 1rem;
-  background: rgba(220,220,220,0.97);
   transition: all 0.2s;
 
   &.Footer--expanded {
@@ -17,17 +15,27 @@ $stats_height: 9rem;
   }
 }
 
-.Footer__toggle {
-  position: absolute;
-  right: 1rem;
-  top: 0;
+.Header {
+  background-color: $color_body;
+  color: white;
+  display: inline-block;
   padding: 1rem;
-  font-size: 2rem;
   cursor: pointer;
-}
 
-.Stats {
-  display: flex;
-  height: $stats_height;
-  margin: 0 0 2rem;
+  i {
+    margin: 0 0.5rem 0 0;
+    position: relative;
+    bottom: 2px;
+  }
+
+  .sessionTime {
+    margin: 0 4rem 0 0;
+    position: relative;
+    bottom: 2px;
+  }
+
+  .toggle {
+    color: $color_background;
+    font-size: 2.4rem;
+  }
 }

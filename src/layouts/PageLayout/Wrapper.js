@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import * as app from 'modules/app'
+import * as videos from 'modules/videos'
 import PageLayout from 'layouts/PageLayout'
 import Home from 'components/Views/Home'
 import Header from 'components/Header/Header'
@@ -11,7 +12,8 @@ import './PageLayout.scss'
 
 const mapDispatchToProps = {
   mount: () => app.mountRequested(),
-  updateSessionTime: () => app.updateSessionTime()
+  updateSessionTime: () => app.updateSessionTime(),
+  updateVisibilityTimes: () => videos.updateVisibilityTimes()
 }
 
 const mapStateToProps = state => {
@@ -20,8 +22,16 @@ const mapStateToProps = state => {
 
 export class Wrapper extends React.Component {
   componentWillMount () {
-    this.props.mount()
-    this.interval = setInterval(this.props.updateSessionTime, 1000)
+    const { mount, updateSessionTime, updateVisibilityTimes } = this.props
+
+    mount()
+
+    if (!this.interval) {
+      this.interval = setInterval(() => {
+        updateSessionTime()
+        updateVisibilityTimes()
+      }, 1000)
+    }
   }
 
   componentWillUpdate (prevProps) {
@@ -40,7 +50,7 @@ export class Wrapper extends React.Component {
   render () {
     return (
       <div className='App'>
-        <Header />
+        <h1>Marx for Cats</h1>
         <PageLayout exact path='/' Component={Home} />
         <Footer />
       </div>
@@ -51,7 +61,8 @@ export class Wrapper extends React.Component {
 Wrapper.propTypes = {
   location: PropTypes.object,
   mount: PropTypes.func.isRequired,
-  updateSessionTime: PropTypes.func.isRequired
+  updateSessionTime: PropTypes.func.isRequired,
+  updateVisibilityTimes: PropTypes.func.isRequired
 }
 
 Wrapper.defaultProps = {}

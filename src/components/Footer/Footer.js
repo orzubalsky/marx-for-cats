@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import * as app from 'modules/app'
 import * as videos from 'modules/videos'
 import Stat from 'components/Stat/Stat'
@@ -14,14 +15,24 @@ const mapDispatchToProps = {
 const mapStateToProps = state => {
   return {
     watchedVideo: videos.getPlaying(state),
+    visibleVideo: videos.getVisible(state),
     isExpanded: app.getProp(state, 'isFooterExpanded'),
     sessionTime: app.getSessionTime(state)
   }
 }
 
 class Footer extends React.Component {
+  withLeadingZero (number) {
+    return number < 10 ? `0${number}` : number
+  }
+
+  formatNumber (number) {
+    const duration = moment.duration(number * 1000)
+    return `${this.withLeadingZero(duration.minutes())}:${this.withLeadingZero(duration.seconds())}`
+  }
+
   render () {
-    const { isExpanded, sessionTime, updateIsExpanded, watchedVideo } = this.props
+    const { isExpanded, sessionTime, updateIsExpanded, visibleVideo, watchedVideo } = this.props
 
     const className = [
       'Footer',
@@ -30,29 +41,17 @@ class Footer extends React.Component {
 
     return (
       <footer className={className}>
-        <a
-          className='Footer__toggle'
-          onClick={() => updateIsExpanded(!isExpanded)}
-        >
-          { isExpanded ? '-' : '+' }
-        </a>
-        <div className='Stats'>
-          {watchedVideo
-            ? <Stat
-              name={`Watching ${watchedVideo.name}`}
-              cat={_.get(watchedVideo, 'elapsedTime', 0)}
-            />
-            : null
-          }
-          <Stat
-            name='Looking at Affective Labour'
-            cat={sessionTime}
-          />
-          <Stat
-            name='Time spent with cats'
-            average={30}
-            cat={sessionTime}
-          />
+        <div className='Header' onClick={() => updateIsExpanded(!isExpanded)}>
+          <i className='far fa-clock' />
+          <span className='sessionTime'>
+            {this.formatNumber(sessionTime)}
+          </span>
+          <a className='toggle'>
+            { isExpanded
+              ? '-'
+              : '+'
+            }
+          </a>
         </div>
         <About />
       </footer>

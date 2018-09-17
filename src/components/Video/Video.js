@@ -3,17 +3,20 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as videos from 'modules/videos'
 import Player from '@vimeo/player'
+import VisibilitySensor from 'react-visibility-sensor'
 import './Video.scss'
 
 const mapDispatchToProps = {
+  updateStatus: (id, status) => videos.updateStatus({ id, status }),
   updateTime: (id, seconds) => videos.updateTime({ id, seconds }),
-  updateStatus: (id, status) => videos.updateStatus({ id, status })
+  updateVisibility: (id, isVisible) => videos.updateVisibility({ id, isVisible })
 }
 
-const mapStateToProps = state => {
-  return {}
+const mapStateToProps = (state, ownProps) => {
+  return {
+    status: videos.getStatus(state, ownProps.id)
+  }
 }
-
 
 class Video extends React.Component {
   componentDidMount () {
@@ -33,33 +36,41 @@ class Video extends React.Component {
   }
 
   render () {
-    const { className, id, isActive } = this.props
+    const { className, id, status, updateVisibility } = this.props
 
     const classNames = [
       className,
       'Video',
-      !isActive ? 'Video--inactive' : null
+      status === 'playing' ? 'Video--active' : null
     ].join(' ')
 
     return (
-      <div className={classNames}>
-        <div className='Video__inner' id={`Video-${id}`} />
-      </div>
+      <VisibilitySensor
+        scrollCheck
+        scrollThrottle={100}
+        intervalDelay={300}
+        containment={this.props.containment}
+        onChange={isVisible => updateVisibility(id, isVisible)}
+        partialVisibility
+      >
+        <div className={classNames}>
+          <div className='Video__inner' id={`Video-${id}`} />
+        </div>
+      </VisibilitySensor>
     )
   }
 }
 
 Video.propTypes = {
   className: PropTypes.string,
-  isActive: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
   updateTime: PropTypes.func.isRequired,
   updateStatus: PropTypes.func.isRequired,
+  updateVisibility: PropTypes.func.isRequired
 }
 
 Video.defaultProps = {
-  className: '',
-  isActive: true
+  className: ''
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Video)
