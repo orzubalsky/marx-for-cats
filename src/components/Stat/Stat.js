@@ -1,18 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
+import Duration from 'components/Duration/Duration'
 import './Stat.scss'
 
 class Stat extends React.Component {
-  withLeadingZero (number) {
-    return number < 10 ? `0${number}` : number
-  }
-
-  formatNumber (number) {
-    const duration = moment.duration(number * 1000)
-    return `${this.withLeadingZero(duration.minutes())}:${this.withLeadingZero(duration.seconds())}`
-  }
-
   render () {
     const className = [
       'Stat',
@@ -30,14 +21,10 @@ class Stat extends React.Component {
         </div>
         <div className='Stat__value'>
           { average
-            ? <span className='Stat__average'>
-              {this.formatNumber(average)}
-            </span>
+            ? <Duration className='Stat__average' seconds={average} />
             : null
           }
-          <span className='Stat__cat'>
-            {this.formatNumber(cat)}
-          </span>
+          <Duration className='Stat__cat' seconds={cat} />
         </div>
       </div>
     )

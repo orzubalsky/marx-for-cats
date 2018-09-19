@@ -1,21 +1,21 @@
 @import 'base';
 
 .VideoItem {
-  margin: 0 auto 4rem;
-  padding: 1rem 0 8rem;
+  margin: 0 0 4rem;
   text-align: left;
-  border-bottom: 1px solid $color_body;
+  flex: 0 0 100%;
 
-  &:last-child {
-    margin: 0 auto;
-    border-bottom: none;
+  @include for-tablet-portrait-up() {
+    flex: 0 0 50%;
+  }
+
+  @include for-desktop-up() {
+    flex: 0 0 33.33%;
   }
 }
 
 .VideoItem__inner {
-  max-width: 80rem;
   padding: 0 2rem;
-  margin: 0 auto;
   position: relative;
 }
 
@@ -35,21 +35,23 @@
 .VideoItem__name {
   margin: 0 0 1rem;
   position: relative;
-  padding: 0 15rem 0 0;
+  padding: 0;
   font-weight: 100;
   font-size: 1.6rem;
 
   @include for-tablet-portrait-up() {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 
+.VideoItem__videoContainer {
+  margin: 0 0 0.5rem;
+}
+
 .VideoItem__stats {
-  display: inline-block;
-  position: absolute;
-  bottom: 0;
-  right: 0;
   font-size: 1.4rem;
+  text-align: right;
+  margin: 0 0 0.5rem;
 }
 
 .VideoItem__stat {

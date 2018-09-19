@@ -2,4 +2,12 @@
 
 .Home {
   background-color: $color_background;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  @include for-tablet-landscape-up() {
+    padding: 0 4rem;
+  }
 }
