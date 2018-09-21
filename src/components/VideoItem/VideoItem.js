@@ -6,6 +6,7 @@ import Video from 'components/Video/Video'
 import Duration from 'components/Duration/Duration'
 import Stat from 'components/Stat/Stat'
 import Percentage from 'components/Percentage/Percentage'
+import { randomNumber } from 'utils/common'
 import './VideoItem.scss'
 
 const mapDispatchToProps = {}
@@ -24,10 +25,6 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 class VideoItem extends React.Component {
-  randomNumber (max, min) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   render () {
     const { averageVisibility, averageWatch, className, percent, id, isPlaying, isVisible, name, visibilityTime } = this.props
 
@@ -54,7 +51,7 @@ class VideoItem extends React.Component {
               isVisible={isVisible}
               isPlaying={isPlaying}
               type='duration'
-              wait={this.randomNumber(1200, 0)}
+              wait={randomNumber(1200, 0)}
             />
             <Stat
               average={averageWatch}

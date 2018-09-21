@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as videos from 'modules/videos'
 import VideoItem from 'components/VideoItem/VideoItem'
-import AdItem from 'components/AdItem/AdItem'
+import Spacer from 'components/Spacer/Spacer'
+import { randomNumber } from 'utils/common'
 import './Home.scss'
 
 const mapDispatchToProps = {
@@ -23,7 +24,13 @@ class Home extends React.Component {
   render () {
     return (
       <div className='Home'>
-        {this.props.videos.map(({ id, name }) => <VideoItem key={id} name={name} id={id} />)}
+        <Spacer wait={randomNumber(1200, 0)} />
+        {this.props.videos.map(({ id, name, spacers }) => {
+          return [
+            <VideoItem key={id} name={name} id={id} />,
+            _.map(_.range(spacers), n => <Spacer wait={randomNumber(2500, 0)} />)
+          ]
+        })}
       </div>
     )
   }

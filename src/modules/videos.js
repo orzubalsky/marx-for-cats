@@ -122,43 +122,53 @@ const initialState = {
   items: {
     276037638: {
       id: 276037638,
-      name: "Art's Commodity Status"
+      name: "Art's Commodity Status",
+      spacers: 1
     },
     290188845: {
       id: 290188845,
-      name: "Use Value versus Exchange Value"
+      name: "Use Value versus Exchange Value",
+      spacers: 0
     },
     290198493: {
       id: 290198493,
-      name: "Work versus Labor"
+      name: "Work versus Labor",
+      spacers: 0
     },
     290209146: {
       id: 290209146,
-      name: "A Cat’s Commodity Status"
+      name: "A Cat’s Commodity Status",
+      spacers: 3
     },
     290216480: {
       id: 290216480,
-      name: "Affective Labor and the Real Subsumption of Labor to Capital"
+      name: "Affective Labor and the Real Subsumption of Labor to Capital",
+      spacers: 6
     },
     290267616: {
       id: 290267616,
-      name: "Commodity (defined)"
+      name: "Commodity (defined)",
+      spacers: 9
     },
     290275489: {
       id: 290275489,
-      name: "Spatial Fix"
+      name: "Spatial Fix",
+      spacers: 11
     },
     290284030: {
       id: 290284030,
-      name: "Commodities’ Sentimental Narratives"
+      name: "Commodities’ Sentimental Narratives",
+      spacers: 0
     },
     290293828: {
       id: 290293828,
-      name: "Cat Food’s Commodity Status"
+      name: "Cat Food’s Commodity Status",
+      spacers: 7
     },
     290308435: {
       id: 290308435,
-      name: "Alienated Labor versus Really Free Work"
+      name: "Alienated Labor versus Really Free Work",
+      spacers: 3
     },
   }
 }

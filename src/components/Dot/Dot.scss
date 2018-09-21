@@ -1,0 +1,23 @@
+@import 'base';
+
+@keyframes beep {
+  0%   { opacity: 0; }
+  65%  { opacity: 0; }
+  70%  { opacity: 1; }
+  80%  { opacity: 0; }
+  90%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.Dot {
+  display: inline-block;
+  margin: 0 0.5rem 0 0;
+  height: 0.75rem;
+  width: 0.75rem;
+  background: red;
+  border-radius: 0.5rem;
+
+  &.Dot--rendered.Dot--visible {
+    animation: beep 2s infinite;
+  }
+}

@@ -15,8 +15,12 @@
     flex: 0 0 50%;
   }
 
-  @include for-big-desktop-up() {
+  @include for-desktop-up() {
     flex: 0 0 33.33%;
+  }
+
+  @include for-big-desktop-up() {
+    flex: 0 0 25%;
   }
 }
 

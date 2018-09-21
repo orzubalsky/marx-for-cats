@@ -1,5 +1,9 @@
 import _ from 'lodash'
 
+export const randomNumber = (max, min) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export const averageEventData = (data, eventType) => {
   if (!_.has(data, eventType)) return 0
 
