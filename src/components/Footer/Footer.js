@@ -33,8 +33,8 @@ class Footer extends React.Component {
     return (
       <footer className={className}>
         <div className='Header' onClick={() => updateIsExpanded(!isExpanded)}>
-          <i className='far fa-clock' />
-          <Duration className='sessionTime' seconds={sessionTime} />
+          <i className='fas fa-clock' />
+          <Duration className='sessionTime' value={sessionTime} />
           <a className='toggle'>
             { isExpanded
               ? '-'

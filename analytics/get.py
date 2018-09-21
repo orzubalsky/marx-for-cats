@@ -56,9 +56,9 @@ def main():
   result = get_chapter(analytics)
 
   identifier = ''.join(random.choice(string.lowercase) for i in range(8))
-  print city
+  print result
   # save(identifier, { 'city': city, 'value': value })
-  
+
 
 if __name__ == '__main__':
   main()

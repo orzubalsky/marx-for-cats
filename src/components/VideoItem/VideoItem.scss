@@ -1,5 +1,11 @@
 @import 'base';
 
+@keyframes pulse {
+  0%   { opacity: 1; }
+  50% { opacity: 0; }
+  100%   { opacity: 1; }
+}
+
 .VideoItem {
   margin: 0 0 4rem;
   text-align: left;
@@ -9,7 +15,7 @@
     flex: 0 0 50%;
   }
 
-  @include for-desktop-up() {
+  @include for-big-desktop-up() {
     flex: 0 0 33.33%;
   }
 }
@@ -52,17 +58,4 @@
   font-size: 1.4rem;
   text-align: right;
   margin: 0 0 0.5rem;
-}
-
-.VideoItem__stat {
-  display: inline-block;
-  margin: 0 2rem 0 0;
-
-  &:last-child {
-    margin: 0;
-  }
-
-  i {
-    margin: 0 0.5rem 0 0;
-  }
 }

@@ -1,40 +1,72 @@
 @import 'base';
 
+@keyframes pulse {
+  0%   { opacity: 1; }
+  50% { opacity: 0; }
+  100%   { opacity: 1; }
+}
+
+@keyframes beep {
+  0%   { opacity: 0; }
+  65%  { opacity: 0; }
+  70%  { opacity: 1; }
+  80%  { opacity: 0; }
+  90%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 .Stat {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.Stat__name {
-  font-size: 1.4rem;
-
-  > span {
-    padding: 0.5rem;
-  }
-}
-
-.Stat__value {
-  font-size: 3rem;
+  display: inline-block;
+  margin: 0 2rem 0 0;
   position: relative;
-  flex: 1;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-}
+  text-align: left;
+  opacity: 1;
+  transition: all 0.1s;
 
-.Stat__average,
-.Stat__cat {
-  padding: 0.5rem;
-  position: absolute;
-  text-align: right;
-  color: rgba(255, 0, 0, 0.7);
-}
+  &.Stat--rendered.Stat--isVisible.Stat--duration {
+    .cat .dot {
+      animation: beep 2s infinite;
+    }
+  }
 
-.Stat__cat {
-  z-index: 1;
-}
+  &.Stat--rendered.Stat--isPlaying.Stat--percent {
+    .cat i {
+      animation: pulse 2s infinite;
+    }
+  }
 
-.Stat__average {
-  z-index: 2;
+  .dot {
+    display: inline-block;
+    margin: 0 0.5rem 0 0;
+    height: 0.75rem;
+    width: 0.75rem;
+    background: red;
+    border-radius: 0.5rem;
+    position: relative;
+    bottom: 0.125rem;
+  }
+
+  .average {
+    color: #aaa;
+
+    .dot {
+      background-color: #aaa;
+      opacity: 0;
+    }
+  }
+
+  .cat {
+    i {
+
+    }
+  }
+
+  &:last-child {
+    margin: 0;
+  }
+
+  .fa-clock,
+  .clock {
+    margin: 0 0.5rem 0 0;
+  }
 }

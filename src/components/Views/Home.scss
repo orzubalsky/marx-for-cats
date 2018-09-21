@@ -8,6 +8,14 @@
   align-items: flex-start;
 
   @include for-tablet-landscape-up() {
-    padding: 0 4rem;
+    padding: 0 33vw 0 4rem;
+  }
+
+  @include for-desktop-up() {
+    padding: 0 33vw 0 4rem;
+  }
+
+  @include for-big-desktop-up() {
+    padding: 0 25vw 0 4rem;
   }
 }

@@ -12,12 +12,14 @@ import './PageLayout.scss'
 
 const mapDispatchToProps = {
   mount: () => app.mountRequested(),
-  updateSessionTime: () => app.updateSessionTime(),
-  updateVisibilityTimes: () => videos.updateVisibilityTimes()
+  updateSessionTime: () => app.updateSessionTimeRequested(),
+  updateVisibilityTimes: frameTime => videos.updateVisibilityTimesRequested({ frameTime })
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    frameTime: app.getFrameTime(state)
+  }
 }
 
 export class Wrapper extends React.Component {
@@ -29,8 +31,8 @@ export class Wrapper extends React.Component {
     if (!this.interval) {
       this.interval = setInterval(() => {
         updateSessionTime()
-        updateVisibilityTimes()
-      }, 1000)
+        updateVisibilityTimes(this.props.frameTime)
+      }, this.props.frameTime)
     }
   }
 

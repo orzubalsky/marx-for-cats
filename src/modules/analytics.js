@@ -6,58 +6,97 @@ import { actionCreator, log, timestamp } from 'utils/common'
 export const categories = {
   AD: 'Ad',
   APP: 'App',
-  CHAPTER: 'Chapter',
+  PAGE: 'Page',
   VIDEO: 'Video'
 }
 
 export const actions = {
   VIEW: 'View',
-  PLAY: 'Play'
+  PLAY: 'Play',
+  WATCH: percent => `Watch-${percent}%`,
+  TIME: seconds => `Time-${seconds}`,
+  ATTENTION: seconds => `Attention-${seconds}`
 }
 
 // ------------------------------------
 // Action Type Constants
 // ------------------------------------
 const MODULE = 'ANALYTICS'
-const CHAPTER_VIEW_REQUESTED = `${MODULE}/CHAPTER_VIEW/REQUESTED`
 
 // ------------------------------------
 // Action Creators
 // ------------------------------------
-export const chapterViewRequested = actionCreator(CHAPTER_VIEW_REQUESTED, 'payload', 'options')
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
+const ACTION_HANDLERS = {}
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
+const initialState = {
+  isEnabled: false
+}
 
+export const reducer = (state = initialState, action) => {
+  const handler = ACTION_HANDLERS[action.type]
+  return handler ? handler(state, action) : state
+}
 // ------------------------------------
 // Selectors
 // ------------------------------------
+export const getModule = state => state.analytics
+export const getProp = (state, prop, defaultVal) => _.get(getModule(state), prop, defaultVal)
 export const getLocation = state => _.get(state, 'router.location')
+export const getIsEnabled = state => getProp(state, 'isEnabled')
 
 // ------------------------------------
 // Sagas
 // ------------------------------------
-export function * handleChapterView (action) {
-  const { name } = action.payload
-  yield call(track, { category: categories.CHAPTER, action: actions.VIEW, label: name })
+export function * trackVideoPlay ({ name }) {
+  yield call(track, { category: categories.VIDEO, action: actions.PLAY, label: name })
+}
+
+export function * trackVideoWatch ({ name, percent, seconds }) {
+  if (percent * 100 % 1 === 0) {
+    yield call(track, { category: categories.VIDEO, action: actions.WATCH(percent * 100), label: name })
+  }
+
+  if (seconds % 10 === 0) {
+    yield call(track, { category: categories.VIDEO, action: actions.TIME(seconds), label: name })
+  }
+}
+
+export function * trackVideoAttention ({ name, isVisible, seconds }) {
+  if (isVisible && seconds % 10 === 0) {
+    yield call(track, { category: categories.VIDEO, action: actions.ATTENTION(seconds), label: name })
+  }
+}
+
+export function * trackPageAttention ({ name, seconds }) {
+  if (seconds % 25 === 0) {
+    yield call(track, { category: categories.PAGE, action: actions.ATTENTION(seconds), label: name })
+  }
 }
 
 export function * track (params) {
-    const location = yield select(getLocation)
-    const { category, action, label } = params
-    
-    // gtag is a global variable
-    gtag('event', category, {
-      'event_category': category,    
-      'event_action' : action,
-      'event_label': label,
-      'page_path': location.pathname
-    })
+  const isEnabled = yield select(getIsEnabled)
+
+  if (!isEnabled) return
+
+  const location = yield select(getLocation)
+  const { category, action, label } = params
+
+  log(category, action, label, location.pathname)
+
+  // gtag is a global variable
+  gtag('event', category, {
+    'event_category': category,
+    'event_action' : action,
+    'event_label': label,
+    'page_path': location.pathname
+  })
 }
 
 export function * trackLocation (payload) {
@@ -73,7 +112,5 @@ export function * trackLocation (payload) {
 // Saga Watchers
 // ------------------------------------
 export function * sagas () {
-  yield all([
-    takeEvery(CHAPTER_VIEW_REQUESTED, handleChapterView),
-  ])
+  yield all([])
 }

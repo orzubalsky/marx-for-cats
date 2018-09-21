@@ -7,8 +7,8 @@ import VisibilitySensor from 'react-visibility-sensor'
 import './Video.scss'
 
 const mapDispatchToProps = {
-  updateStatus: (id, status) => videos.updateStatus({ id, status }),
-  updateTime: (id, seconds) => videos.updateTime({ id, seconds }),
+  updateStatus: (id, status) => videos.updateStatusRequested({ id, status }),
+  updateTime: (id, seconds, percent) => videos.updateTimeRequested({ id, seconds, percent }),
   updateVisibility: (id, isVisible) => videos.updateVisibility({ id, isVisible })
 }
 
@@ -32,7 +32,7 @@ class Video extends React.Component {
 
     this.player.on('play', data => { updateStatus(id, 'playing') })
     this.player.on('pause', data => { updateStatus(id, 'paused') })
-    this.player.on('timeupdate', data => { updateTime(id, data.seconds) })
+    this.player.on('timeupdate', data => { updateTime(id, data.seconds, data.percent) })
   }
 
   render () {
