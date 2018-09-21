@@ -1,5 +1,20 @@
 import _ from 'lodash'
 
+export const averageEventData = (data, eventType) => {
+  if (!_.has(data, eventType)) return 0
+
+  const invertedData = _.invert(data[eventType])
+
+  const total = _.chain(invertedData)
+    .map((seconds, sum) => seconds * sum)
+    .reduce((sum, value) => sum + value)
+    .value()
+
+  const average = total / _.size(invertedData)
+
+  return average
+}
+
 export const log = (...args) => {
   const logArgs = _.map({ ...args }, (argument, i) => i == 0 ? `[APP] ${argument}` : argument)
 

@@ -35,13 +35,13 @@ class Stat extends React.Component {
 
     return (
       <div className={className}>
-        <div className='average'>
-          <span className={iconName} />
-          <Value value={average} />
-        </div>
         <div className='cat'>
           <span className={iconName} />
           <Value value={cat} />
+        </div>
+        <div className='average'>
+          <span className={iconName} />
+          <Value value={average} />
         </div>
       </div>
     )

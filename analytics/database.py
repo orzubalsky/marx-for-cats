@@ -10,6 +10,6 @@ def init_database():
   cred = credentials.Certificate(key)
   firebase = firebase_admin.initialize_app(cred, { 'databaseURL': 'https://marx-for-cats.firebaseio.com' })
 
-def save(id, data):
+def save(data):
   records_ref = db.reference('/records')
-  return records_ref.child(id).update(data)
+  return records_ref.set(data)

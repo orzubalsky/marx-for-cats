@@ -1,10 +1,11 @@
 import _ from 'lodash'
 import { all, call, put, select, takeLatest } from 'redux-saga/effects'
 import { combineReducers } from 'redux'
+import firebase from 'firebase'
 import * as analytics from 'modules/analytics'
 import * as navigation from 'modules/navigation'
 import * as videos from 'modules/videos'
-import { actionCreator, log } from 'utils/common'
+import { actionCreator, averageEventData, log } from 'utils/common'
 
 // ------------------------------------
 // Action Type Constants
@@ -12,6 +13,7 @@ import { actionCreator, log } from 'utils/common'
 const MODULE = 'APP'
 const MOUNT_REQUESTED = `${MODULE}/MOUNT/REQUESTED`
 const UPDATE = `${MODULE}/UPDATED`
+const UPDATE_SESSION_DATA = `${MODULE}/SESSION/DATA/UPDATED`
 const UPDATE_SESSION_TIME = `${MODULE}/SESSION/TIME/UPDATED`
 const UPDATE_SESSION_TIME_REQUESTED = `${MODULE}/SESSION/TIME/UPDATE/REQUESTED`
 
@@ -20,6 +22,7 @@ const UPDATE_SESSION_TIME_REQUESTED = `${MODULE}/SESSION/TIME/UPDATE/REQUESTED`
 // ------------------------------------
 export const mountRequested = actionCreator(MOUNT_REQUESTED, 'payload')
 export const update = actionCreator(UPDATE, 'payload')
+export const updateSessionData = actionCreator(UPDATE_SESSION_DATA, 'payload')
 export const updateSessionTime = actionCreator(UPDATE_SESSION_TIME, 'payload')
 export const updateSessionTimeRequested = actionCreator(UPDATE_SESSION_TIME_REQUESTED, 'payload')
 // ------------------------------------
@@ -30,6 +33,23 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       ...action.payload
+    }
+  },
+  [UPDATE_SESSION_DATA] : (state, action) => {
+    const data = _.chain(action.payload.data)
+      .find(d => d.name === '/')
+      .get('events')
+      .value()
+
+    const average = averageEventData(data, 'attention')
+
+    return {
+      ...state,
+      session: {
+        ...state.session,
+        data,
+        average
+      }
     }
   },
   [UPDATE_SESSION_TIME] : (state, action) => {
@@ -55,7 +75,7 @@ export const reducer = (state = [], action) => {
 }
 
 const initialState = {
-  frameTime: 83,
+  frameTime: 183,
   isFooterExpanded: false,
   session: {
     time : 0
@@ -93,7 +113,17 @@ export const getFrameTime = state => getProp(state, 'frameTime')
 // Sagas
 // ------------------------------------
 export function * mount (action) {
-  // yield put(analytics.chapterViewRequested({ name: 'test' }))
+  const db = yield call(firebase.initializeApp, {
+    databaseURL: 'https://marx-for-cats.firebaseio.com',
+    serviceAccount: 'firebase-key.json'
+  })
+
+  const ref = firebase.database().ref('/records')
+  const snap = yield call([ref, ref.once], 'value')
+  const data = snap.val()
+
+  yield put(videos.updateData({ data: _.get(data, 'videos', {}) }))
+  yield put(updateSessionData({ data: _.get(data, 'pages', {}) }))
 }
 
 export function * handleUpdateSessionTime (action) {

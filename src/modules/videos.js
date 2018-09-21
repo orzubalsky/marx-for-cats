@@ -1,13 +1,15 @@
 import _ from 'lodash'
 import { all, call, put, select, takeLatest } from 'redux-saga/effects'
+import slugify from 'slugify'
 import * as analytics from 'modules/analytics'
-import { actionCreator } from 'utils/common.js'
+import { actionCreator, averageEventData } from 'utils/common'
 
 // ------------------------------------
 // Action Type Constants
 // ------------------------------------
 const MODULE = 'VIDEOS'
 const UPDATE = `${MODULE}/UPDATED`
+const UPDATE_DATA = `${MODULE}/DATA/UPDATED`
 const UPDATE_STATUS = `${MODULE}/STATUS/UPDATED`
 const UPDATE_STATUS_REQUESTED = `${MODULE}/STATUS/UPDATE/REQUESTED`
 const UPDATE_TIME = `${MODULE}/TIME/UPDATED`
@@ -20,6 +22,7 @@ const UPDATE_VISIBILITY_TIMES_REQUESTED = `${MODULE}/VISIBILITY_TIMES/UPDATE/REQ
 // Action Creators
 // ------------------------------------
 export const update = actionCreator(UPDATE, 'payload')
+export const updateData = actionCreator(UPDATE_DATA, 'payload')
 export const updateStatus = actionCreator(UPDATE_STATUS, 'payload')
 export const updateStatusRequested = actionCreator(UPDATE_STATUS_REQUESTED, 'payload')
 export const updateTime = actionCreator(UPDATE_TIME, 'payload')
@@ -36,6 +39,27 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       ...action.payload
+    }
+  },
+  [UPDATE_DATA] : (state, action) => {
+    const { data } = action.payload
+
+    return {
+      ...state,
+      items: _.mapValues(state.items, video => {
+        const slug = slugify(video.name).toLowerCase().replace("'", "")
+        const videoData = _.find(data, d => d.slug === slug)
+        const eventData = _.get(videoData, 'events', {})
+
+        return {
+          ...video,
+          data: eventData,
+          averages: {
+            attention: averageEventData(eventData, 'attention'),
+            watch: averageEventData(eventData, 'watch')
+          }
+        }
+      })
     }
   },
   [UPDATE_STATUS] : (state, action) => {
@@ -159,6 +183,7 @@ export const getItemProp = (state, id, prop, defaultValue) => _.get(getItem(stat
 export const getStatus = (state, id) => getItemProp(state, id, 'status', 'stopped')
 export const getElapsedTime = (state, id) => getItemProp(state, id, 'elapsedTime', 0)
 export const getPercent = (state, id) => getItemProp(state, id, 'percent', 0)
+export const getAverage = (state, id, type) => _.get(getItemProp(state, id, 'averages', {}), type, 0)
 export const getVisibilityTime = (state, id) => getItemProp(state, id, 'visibilityTime', 0)
 export const getIsVisible = (state, id) => getItemProp(state, id, 'isVisible', false)
 export const getIsPlaying = (state, id) => getStatus(state, id) === 'playing'

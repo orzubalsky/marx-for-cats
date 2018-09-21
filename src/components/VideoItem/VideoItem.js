@@ -14,6 +14,8 @@ const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps
 
   return {
+    averageVisibility: videos.getAverage(state, id, 'attention') * 1000,
+    averageWatch: videos.getAverage(state, id, 'watch') / 100,
     isVisible: videos.getIsVisible(state, id),
     isPlaying: videos.getIsPlaying(state, id),
     percent: videos.getPercent(state, id),
@@ -27,7 +29,7 @@ class VideoItem extends React.Component {
   }
 
   render () {
-    const { className, percent, id, isPlaying, isVisible, name, visibilityTime } = this.props
+    const { averageVisibility, averageWatch, className, percent, id, isPlaying, isVisible, name, visibilityTime } = this.props
 
     const classNames = [
       className,
@@ -37,9 +39,15 @@ class VideoItem extends React.Component {
     return (
       <div className={classNames}>
         <div className='VideoItem__inner'>
+          <h2 className='VideoItem__name'>
+            {name}
+          </h2>
+          <div className='VideoItem__videoContainer'>
+            <Video id={id} />
+          </div>
           <div className='VideoItem__stats'>
             <Stat
-              average={300}
+              average={averageVisibility}
               cat={visibilityTime}
               className='Stat--visibility'
               iconName='dot'
@@ -49,7 +57,7 @@ class VideoItem extends React.Component {
               wait={this.randomNumber(1200, 0)}
             />
             <Stat
-              average={0.5}
+              average={averageWatch}
               cat={percent}
               className='Stat--watched'
               iconName='far fa-clock'
@@ -59,12 +67,6 @@ class VideoItem extends React.Component {
               wait={0}
             />
           </div>
-          <div className='VideoItem__videoContainer'>
-            <Video id={id} />
-          </div>
-          <h2 className='VideoItem__name'>
-            {name}
-          </h2>
         </div>
       </div>
     )
