@@ -1,6 +1,6 @@
 @import 'base';
 
-$stats_height: 5rem;
+$stats_height: 4rem;
 
 .Footer {
   position: fixed;
@@ -21,15 +21,16 @@ $stats_height: 5rem;
   display: inline-block;
   padding: 1rem;
   cursor: pointer;
+  width: 14rem;
+  position: relative;
 
   i {
-    margin: 0 0.5rem 0 0;
-    position: relative;
-    bottom: 2px;
+    position: absolute;
+    top: 1.15rem;
+    left: 1rem;
   }
 
   .sessionTime {
-    margin: 0 4rem 0 0;
     position: relative;
     bottom: 2px;
   }
@@ -37,5 +38,8 @@ $stats_height: 5rem;
   .toggle {
     color: $color_background;
     font-size: 2.4rem;
+    position: absolute;
+    right: 1rem;
+    top: 0.25rem;
   }
 }
