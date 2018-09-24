@@ -46,7 +46,7 @@ export const reducer = (state = initialState, action) => {
 // ------------------------------------
 // Selectors
 // ------------------------------------
-export const getModule = state => state.analytics
+export const getModule = state => state.app.analytics
 export const getProp = (state, prop, defaultVal) => _.get(getModule(state), prop, defaultVal)
 export const getLocation = state => _.get(state, 'router.location')
 export const getIsEnabled = state => getProp(state, 'isEnabled')
