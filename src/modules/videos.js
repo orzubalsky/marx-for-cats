@@ -210,7 +210,7 @@ export function * handleUpdateVisibilityTimes (action) {
     call(analytics.trackVideoAttention, {
       name,
       isVisible,
-      seconds: visibilityTime
+      seconds: Math.floor(visibilityTime / 1000)
     }
   )))
 }

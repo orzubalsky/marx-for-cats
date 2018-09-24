@@ -132,7 +132,7 @@ export function * handleUpdateSessionTime (action) {
   const sessionTime = yield select(getSessionTime)
   const location = yield select(analytics.getLocation)
 
-  yield call(analytics.trackPageAttention, { seconds: sessionTime, name: location.pathname })
+  yield call(analytics.trackPageAttention, { seconds: Math.floor(sessionTime / 1000), name: location.pathname })
 }
 
 // ------------------------------------
