@@ -6,8 +6,7 @@ import * as app from 'modules/app'
 import * as videos from 'modules/videos'
 import PageLayout from 'layouts/PageLayout'
 import Home from 'components/Views/Home'
-import Header from 'components/Header/Header'
-import Footer from 'components/Footer/Footer'
+import Countdown from 'components/Views/Countdown'
 import './PageLayout.scss'
 
 const mapDispatchToProps = {
@@ -52,9 +51,8 @@ export class Wrapper extends React.Component {
   render () {
     return (
       <div className='App'>
-        <h1>Marx for Cats</h1>
-        <PageLayout exact path='/' Component={Home} />
-        <Footer />
+        <PageLayout exact path='/' Component={Countdown} />
+        <PageLayout exact path='/videos' Component={Home} />
       </div>
     )
   }

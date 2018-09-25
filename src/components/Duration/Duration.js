@@ -17,7 +17,10 @@ class Duration extends React.Component {
 
   formatNumber (number) {
     const duration = moment.duration(number)
-    return `${this.withLeadingZero(duration.minutes())}:${this.withLeadingZero(duration.seconds())}.${this.withLeadingZeros(duration.milliseconds())}`
+    const short =  `${this.withLeadingZero(duration.minutes())}:${this.withLeadingZero(duration.seconds())}`
+    return this.props.isLong
+      ? `${this.withLeadingZero(duration.days())}:${this.withLeadingZero(duration.hours())}:${short}`
+      : `${short}.${this.withLeadingZeros(duration.milliseconds())}`
   }
 
   render () {
@@ -31,11 +34,15 @@ class Duration extends React.Component {
 
 Duration.propTypes = {
   className: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired,
+  isLong: PropTypes.bool.isRequired,
+  isWithMs: PropTypes.bool.isRequired
 }
 
 Duration.defaultProps = {
   className: '',
+  isLong: false,
+  isWithMs: true,
   value: 0
 }
 
