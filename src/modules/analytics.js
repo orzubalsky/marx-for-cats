@@ -69,13 +69,13 @@ export function * trackVideoWatch ({ name, percent, seconds }) {
 }
 
 export function * trackVideoAttention ({ name, isVisible, seconds }) {
-  if (isVisible && seconds > 0 && seconds % 10 === 0) {
+  if (isVisible && seconds % 10 === 0) {
     yield call(track, { category: categories.VIDEO, action: actions.ATTENTION(seconds), label: name })
   }
 }
 
 export function * trackPageAttention ({ name, seconds }) {
-  if (seconds > 0 && seconds % 25 === 0) {
+  if (seconds % 25 === 0) {
     yield call(track, { category: categories.PAGE, action: actions.ATTENTION(seconds), label: name })
   }
 }
