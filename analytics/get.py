@@ -12,7 +12,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = os.path.join(path, 'client_secrets.json')
-VIEW_ID = '177495678'
+VIEW_ID = '182359918'
 
 
 def initialize_analyticsreporting():
@@ -93,23 +93,26 @@ def createMap (dataObject, data, key):
 def get_events(analytics):
   response = get_report(analytics, ['ga:sessions'], ['ga:eventCategory', 'ga:eventAction', 'ga:eventLabel'])
 
-  rows = response['reports'][0]['data']['rows']
+  if ('rows' in response['reports'][0]['data']):
+    rows = response['reports'][0]['data']['rows']
 
-  data = {
-    'videos': {},
-    'pages': {},
-    'ads': {}
-  }
+    data = {
+      'videos': {},
+      'pages': {},
+      'ads': {}
+    }
 
-  videos = [row for row in rows if row['dimensions'][0] == 'Video']
-  pages = [row for row in rows if row['dimensions'][0] == 'Page']
-  ads = [row for row in rows if row['dimensions'][0] == 'Ad']
+    videos = [row for row in rows if row['dimensions'][0] == 'Video']
+    pages = [row for row in rows if row['dimensions'][0] == 'Page']
+    ads = [row for row in rows if row['dimensions'][0] == 'Ad']
 
-  data = createMap(data, videos, 'videos')
-  data = createMap(data, pages, 'pages')
-  data = createMap(data, ads, 'ads')
+    data = createMap(data, videos, 'videos')
+    data = createMap(data, pages, 'pages')
+    data = createMap(data, ads, 'ads')
 
-  return data
+    return data
+
+  return False
 
 
 def main():
@@ -117,7 +120,8 @@ def main():
   analytics = initialize_analyticsreporting()
   data = get_events(analytics)
 
-  save(data)
+  if (data):
+    save(data)
 
 
 if __name__ == '__main__':

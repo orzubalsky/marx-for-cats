@@ -8,12 +8,12 @@ class About extends React.Component {
       <div className='About'>
         <div className='About__description'>
           <p>
-            The cats look back.
+            Cats are looking.
           </p>
         </div>
         <div className='About__credit'>
           <p>
-            By Caroline Woolard, Leigh Claire La Berge, and Or Zubalsky.<br />
+            By Leigh Claire La Berge, Caroline Woolard, and Or Zubalsky.<br />
             Get in touch at <a href="mailto:marxforcats@gmail.com">marxforcats@gmail.com</a>
           </p>
         </div>
