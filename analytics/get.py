@@ -12,7 +12,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = os.path.join(path, 'client_secrets.json')
-VIEW_ID = '182359918'
+VIEW_ID = '182326572'
 
 
 def initialize_analyticsreporting():

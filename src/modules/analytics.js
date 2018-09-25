@@ -103,7 +103,7 @@ export function * trackLocation (payload) {
   const location = yield select(getLocation)
 
   // google analytics page view
-  const gaId = 'UA-11810862-13'
+  const gaId = 'UA-11810862-14'
 
   yield call(gtag, 'config', gaId, { 'page_path': location.pathname })
 }
