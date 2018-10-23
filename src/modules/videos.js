@@ -80,8 +80,8 @@ const ACTION_HANDLERS = {
     const previousTime = _.get(state.items[id], 'currentTime', 0)
     const timeDiff = currentTime - previousTime
     const previousElapsedTime = _.get(state.items[id], 'elapsedTime', 0)
-    const elapsedTime = !document.hidden ?
-      Math.abs(timeDiff) < 1
+    const elapsedTime = !document.hidden
+      ? Math.abs(timeDiff) < 1
         ? previousElapsedTime + timeDiff
         : previousElapsedTime
       : previousElapsedTime
@@ -110,7 +110,10 @@ const ACTION_HANDLERS = {
 
     return {
       ...state,
-      items: _.mapValues(state.items, video => video.isVisible && !document.hidden ? ({ ...video, visibilityTime: _.get(video, 'visibilityTime', 0) + frameTime }) : video)
+      items: _.mapValues(state.items, video => video.isVisible && !document.hidden
+        ? ({ ...video, visibilityTime: _.get(video, 'visibilityTime', 0) + frameTime })
+        : video
+      )
     }
   }
 }
@@ -120,56 +123,66 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   items: {
-    276037638: {
-      id: 276037638,
-      name: "Art's Commodity Status",
-      spacers: 1
-    },
-    290188845: {
-      id: 290188845,
-      name: "Use Value versus Exchange Value",
-      spacers: 0
-    },
-    290198493: {
-      id: 290198493,
-      name: "Work versus Labor",
-      spacers: 0
-    },
-    290209146: {
-      id: 290209146,
+    292507851: {
+      id: 292507851,
       name: "A Cat’s Commodity Status",
       spacers: 3
     },
-    290216480: {
-      id: 290216480,
+    292508353: {
+      id: 292508353,
       name: "Affective Labor and the Real Subsumption of Labor to Capital",
       spacers: 6
     },
-    290267616: {
-      id: 290267616,
-      name: "Commodity (defined)",
-      spacers: 9
-    },
-    290275489: {
-      id: 290275489,
-      name: "Spatial Fix",
-      spacers: 11
-    },
-    290284030: {
-      id: 290284030,
-      name: "Commodities’ Sentimental Narratives",
-      spacers: 0
-    },
-    290293828: {
-      id: 290293828,
-      name: "Cat Food’s Commodity Status",
-      spacers: 7
-    },
-    290308435: {
-      id: 290308435,
+    292508588: {
+      id: 292508588,
       name: "Alienated Labor versus Really Free Work",
       spacers: 3
     },
+    292508728: {
+      id: 292508728,
+      name: "Art's Commodity Status",
+      spacers: 1
+    },
+    292508948: {
+      id: 292508948,
+      name: "Cat Food’s Commodity Status",
+      spacers: 7
+    },
+    292509174: {
+      id: 292509174,
+      name: "Commodities’ Sentimental Narratives",
+      spacers: 0
+    },
+    292509297: {
+      id: 292509297,
+      name: "Commodity (defined)",
+      spacers: 9
+    },
+    292510948: {
+      id: 292510948,
+      name: "Finance Capital",
+      spacers: 12
+    },
+    292511219: {
+      id: 292511219,
+      name: "Marx’s Das Kapital",
+      spacers: 6
+    },
+    292509400: {
+      id: 292509400,
+      name: "Spatial Fix",
+      spacers: 9
+    },
+    292510567: {
+      id: 292510567,
+      name: "Use Value versus Exchange Value",
+      spacers: 0
+    },
+    292510693: {
+      id: 292510693,
+      name: "Work versus Labor",
+      spacers: 0
+    }
   }
 }
 
