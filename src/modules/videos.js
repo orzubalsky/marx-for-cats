@@ -47,7 +47,7 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       items: _.mapValues(state.items, video => {
-        const slug = slugify(video.name).toLowerCase().replace("'", "")
+        const slug = slugify(video.name).toLowerCase().replace('\'', '')
         const videoData = _.find(data, d => d.slug === slug)
         const eventData = _.get(videoData, 'events', {})
 
@@ -125,62 +125,74 @@ const initialState = {
   items: {
     292507851: {
       id: 292507851,
-      name: "A Cat’s Commodity Status",
+      name: 'A Cat’s Commodity Status',
+      slug: 'a-cats-commodity-status',
       spacers: 3
     },
     292508353: {
       id: 292508353,
-      name: "Affective Labor and the Real Subsumption of Labor to Capital",
+      name: 'Affective Labor and the Real Subsumption of Labor to Capital',
+      slug: 'affective-labor-and-the-real-subsumption-of-labor-to-capital',
       spacers: 6
     },
     292508588: {
       id: 292508588,
-      name: "Alienated Labor versus Really Free Work",
+      name: 'Alienated Labor versus Really Free Work',
+      slug: 'alienated-labor-versus-really-free-work',
       spacers: 3
     },
     292508728: {
       id: 292508728,
-      name: "Art's Commodity Status",
+      name: 'Art’s Commodity Status',
+      slug: 'arts-commodity-status',
       spacers: 1
     },
     292508948: {
       id: 292508948,
-      name: "Cat Food’s Commodity Status",
+      name: 'Cat Food’s Commodity Status',
+      slug: 'cat-foods-commodity-status',
       spacers: 7
     },
     292509174: {
       id: 292509174,
-      name: "Commodities’ Sentimental Narratives",
+      name: 'Commodities’ Sentimental Narratives',
+      slug: 'commodities-sentimental-narratives',
       spacers: 0
     },
     292509297: {
       id: 292509297,
-      name: "Commodity (defined)",
+      name: 'Commodity (defined)',
+      slug: 'commodity-defined',
       spacers: 9
     },
     292510948: {
       id: 292510948,
-      name: "Finance Capital",
+      name: 'Finance Capital',
+      slug: 'finance-capital',
       spacers: 12
     },
     292511219: {
       id: 292511219,
-      name: "Marx’s Das Kapital",
+      name: 'Marx’s Das Kapital',
+      slug: 'marxs-das-kapital',
       spacers: 6
     },
     292509400: {
       id: 292509400,
-      name: "Spatial Fix",
+      name: 'Spatial Fix',
+      slug: 'spatial-fix',
       spacers: 9
     },
     292510567: {
       id: 292510567,
-      name: "Use Value versus Exchange Value",
+      name: 'Use Value versus Exchange Value',
+      slug: 'use-value-versus-exchange-value',
       spacers: 0
     },
     292510693: {
       id: 292510693,
-      name: "Work versus Labor",
+      name: 'Work versus Labor',
+      slug: 'work-versus-labor',
       spacers: 0
     }
   }

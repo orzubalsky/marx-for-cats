@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as videos from 'modules/videos'
 import VideoItem from 'components/VideoItem/VideoItem'
 import Spacer from 'components/Spacer/Spacer'
@@ -25,12 +26,16 @@ class Home extends React.Component {
   render () {
     return (
       <div className='Home'>
-        <h1>Marx for Cats</h1>
+        <h1>
+          <Link to='/'>
+            Marx for Cats
+          </Link>
+        </h1>
         <div className='Home__content'>
           <Spacer wait={randomNumber(1200, 0)} />
-          {this.props.videos.map(({ id, name, spacers }) => {
+          {this.props.videos.map(({ id, name, slug, spacers }) => {
             return [
-              <VideoItem key={id} name={name} id={id} />,
+              <VideoItem key={id} name={name} id={id} slug={slug} />,
               _.map(_.range(spacers), n => <Spacer wait={randomNumber(2500, 0)} />)
             ]
           })}

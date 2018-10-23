@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as videos from 'modules/videos'
 import Video from 'components/Video/Video'
-import Duration from 'components/Duration/Duration'
 import Stat from 'components/Stat/Stat'
-import Percentage from 'components/Percentage/Percentage'
 import { randomNumber } from 'utils/common'
 import './VideoItem.scss'
 
@@ -26,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
 
 class VideoItem extends React.Component {
   render () {
-    const { averageVisibility, averageWatch, className, percent, id, isPlaying, isVisible, name, visibilityTime } = this.props
+    const { averageVisibility, averageWatch, className, percent, id, isPlaying, isVisible, name, slug, visibilityTime } = this.props
 
     const classNames = [
       className,
@@ -34,10 +33,12 @@ class VideoItem extends React.Component {
     ].join(' ')
 
     return (
-      <div className={classNames}>
+      <div className={classNames} id={slug}>
         <div className='VideoItem__inner'>
           <h2 className='VideoItem__name'>
-            {name}
+            <Link to={`/video/${slug}`}>
+              {name}
+            </Link>
           </h2>
           <div className='VideoItem__videoContainer'>
             <Video id={id} />

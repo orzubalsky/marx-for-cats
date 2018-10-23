@@ -88,7 +88,7 @@ export function * track (params) {
   const location = yield select(getLocation)
   const { category, action, label } = params
 
-  log(category, action, label, location.pathname)
+  // log(category, action, label, location.pathname)
 
   // gtag is a global variable
   gtag('event', category, {
