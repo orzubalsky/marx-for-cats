@@ -68,7 +68,7 @@ export class Wrapper extends React.Component {
   render () {
     return (
       <div className='App'>
-        <PageLayout exact path='/' Component={Countdown} />
+        <PageLayout exact path='/' Component={Home} />
         <PageLayout exact path='/videos' Component={Home} />
         <PageLayout exact path='/video/:slug' Component={VideoView} />
       </div>

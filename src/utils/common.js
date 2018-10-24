@@ -10,13 +10,14 @@ export const averageEventData = (data, eventType) => {
   const invertedData = _.invert(data[eventType])
 
   const total = _.chain(invertedData)
+    .pickBy((value, key) => key !== 'undefined')
     .map((seconds, sum) => seconds * sum)
     .reduce((sum, value) => sum + value)
     .value()
 
   const average = total / _.size(invertedData)
 
-  return average
+  return parseFloat(average.toFixed(2))
 }
 
 export const log = (...args) => {
