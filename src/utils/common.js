@@ -15,7 +15,13 @@ export const averageEventData = (data, eventType) => {
     .reduce((sum, value) => sum + value)
     .value()
 
-  const average = total / _.size(invertedData)
+  const size = _.chain(data[eventType])
+    .values()
+    .compact()
+    .reduce((value, sum) => value + sum)
+    .value()
+
+  const average = total / size
 
   return parseFloat(average.toFixed(2))
 }

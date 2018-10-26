@@ -33,7 +33,8 @@ def get_report(analytics, metrics = [], dimensions = []):
         'dateRanges': [{'startDate': '2018-01-01', 'endDate': 'today'}],
         'metrics': [{ 'expression': m } for m in metrics],
         'dimensions': [{ 'name': d } for d in dimensions ],
-        'orderBys': [ { 'fieldName': metrics[0] } ]
+        'orderBys': [ { 'fieldName': metrics[0] } ],
+        'pageSize': 100000
       }]
     }
   ).execute()
@@ -92,6 +93,9 @@ def createMap (dataObject, data, key):
 
 def get_events(analytics):
   response = get_report(analytics, ['ga:sessions'], ['ga:eventCategory', 'ga:eventAction', 'ga:eventLabel'])
+
+  # import pdb
+  # pdb.set_trace()
 
   if ('rows' in response['reports'][0]['data']):
     rows = response['reports'][0]['data']['rows']
