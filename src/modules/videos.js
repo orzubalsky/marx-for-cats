@@ -123,77 +123,131 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   items: {
+    298855028: {
+      id: 298855028,
+      name: 'Election Day Special: Katzenjammer, Part 1',
+      slug: '2018-election-day-special-katzenjammer-part-1',
+      spacers: 0,
+      order: 1
+    },
+    298855174: {
+      id: 298855174,
+      name: 'Election Day Special: Katzenjammer, Part 2',
+      slug: '2018-election-day-special-katzenjammer-part-2',
+      spacers: 0,
+      order: 2
+    },
+    298856748: {
+      id: 298856748,
+      name: 'Election Day Special: Katzenjammer, Part 3',
+      slug: '2018-election-day-special-katzenjammer-part-3',
+      spacers: 0,
+      order: 3
+    },
+    298857397: {
+      id: 298857397,
+      name: 'Election Day Special: Katzenjammer, Part 4',
+      slug: '2018-election-day-special-katzenjammer-part-4',
+      spacers: 0,
+      order: 4
+    },
+    298857804: {
+      id: 298857804,
+      name: 'Election Day Special: Katzenjammer, Part 5',
+      slug: '2018-election-day-special-katzenjammer-part-5',
+      spacers: 0,
+      order: 5
+    },
+    298858032: {
+      id: 298858032,
+      name: 'Election Day Special: Katzenjammer, Bonus',
+      slug: '2018-election-day-special-katzenjammer-part-6',
+      spacers: 9,
+      order: 6
+    },
     292507851: {
       id: 292507851,
       name: 'A Cat’s Commodity Status',
       slug: 'a-cats-commodity-status',
-      spacers: 3
+      spacers: 3,
+      order: 7
     },
     292508353: {
       id: 292508353,
       name: 'Affective Labor and the Real Subsumption of Labor to Capital',
       slug: 'affective-labor-and-the-real-subsumption-of-labor-to-capital',
-      spacers: 6
+      spacers: 6,
+      order: 8
     },
     292508588: {
       id: 292508588,
       name: 'Alienated Labor versus Really Free Work',
       slug: 'alienated-labor-versus-really-free-work',
-      spacers: 3
+      spacers: 3,
+      order: 9
     },
     292508728: {
       id: 292508728,
       name: 'Art’s Commodity Status',
       slug: 'arts-commodity-status',
-      spacers: 1
+      spacers: 1,
+      order: 10
     },
     292508948: {
       id: 292508948,
       name: 'Cat Food’s Commodity Status',
       slug: 'cat-foods-commodity-status',
-      spacers: 7
+      spacers: 7,
+      order: 11
     },
     292509174: {
       id: 292509174,
       name: 'Commodities’ Sentimental Narratives',
       slug: 'commodities-sentimental-narratives',
-      spacers: 0
+      spacers: 0,
+      order: 12
     },
     292509297: {
       id: 292509297,
       name: 'Commodity (defined)',
       slug: 'commodity-defined',
-      spacers: 9
+      spacers: 9,
+      order: 13
     },
     292510948: {
       id: 292510948,
       name: 'Finance Capital',
       slug: 'finance-capital',
-      spacers: 12
+      spacers: 12,
+      order: 14
     },
     292511219: {
       id: 292511219,
       name: 'Marx’s Das Kapital',
       slug: 'marxs-das-kapital',
-      spacers: 6
+      spacers: 6,
+      order: 15
     },
     292509400: {
       id: 292509400,
       name: 'Spatial Fix',
       slug: 'spatial-fix',
-      spacers: 9
+      spacers: 9,
+      order: 16
     },
     292510567: {
       id: 292510567,
       name: 'Use Value versus Exchange Value',
       slug: 'use-value-versus-exchange-value',
-      spacers: 0
+      spacers: 0,
+      order: 17
     },
     292510693: {
       id: 292510693,
       name: 'Work versus Labor',
       slug: 'work-versus-labor',
-      spacers: 0
+      spacers: 0,
+      order: 18
     }
   }
 }
@@ -209,7 +263,7 @@ export const reducer = (state = initialState, action) => {
 export const getModule = state => state.app.videos
 export const getProp = (state, prop, defaultVal) => _.get(getModule(state), prop, defaultVal)
 export const getItems = state => _.chain(getProp(state, 'items', []))
-  .sortBy('name')
+  .sortBy('order')
   .value()
 export const getPlaying = state => _.find(getItems(state), video => video.status === 'playing')
 export const getVisible = state => _.find(getItems(state), video => video.isVisible)

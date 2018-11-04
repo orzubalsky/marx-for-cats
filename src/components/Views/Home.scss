@@ -1,17 +1,30 @@
 @import 'base';
 
+.Home {
+  h1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: white;
+    z-index: 10;
+  }
+}
+
 .Home__content {
   background-color: $color_background;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-end;
+  padding: 12rem 0 0 0;
 
   @include for-tablet-landscape-up() {
-    padding: 0 4rem;
+    padding: 12rem 4rem 0;
   }
 
   @include for-big-desktop-up() {
-    padding: 0 33vw 0 4rem;
+    padding: 12rem 33vw 0 4rem;
   }
 }
